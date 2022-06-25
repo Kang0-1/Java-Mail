@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kang.javamail.mapper.SmallTypeMapper">
+
+    <resultMap id="SmallTypeResult" type="com.kang.javamail.entity.SmallType">
+        <association property="bigType" column="bigTypeId" select="com.kang.javamail.mapper.BigTypeMapper.findById"></association>
+    </resultMap>
+
+    <select id="list" parameterType="Map" resultMap="SmallTypeResult">
+        select * from t_smallType
+        <where>
+            <if test="name!=null and name!='' ">
+                and name like concat('%',#{name},'%')
+            </if>
+        </where>
+        <if test="currentPageNum!=null and pageSize!=null ">
+            <bind name="currentPageNum" value="(currentPageNum-1)*pageSize"></bind>
+            limit #{currentPageNum},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getTotal" parameterType="Map" resultType="Long">
+        select count(*) from t_smallType
+        <where>
+            <if test="name!=null and name!='' ">
+                and name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>
+
+</mapper>

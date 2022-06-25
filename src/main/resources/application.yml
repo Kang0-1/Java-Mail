@@ -1,0 +1,44 @@
+server:
+  port: 9090
+  servlet:
+    context-path: /
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/java-mail?serverTimezone=Asia/Shanghai
+    username: root
+    password: 3306
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto #id生成 数据库id自增
+  configuration:
+    map-underscore-to-camel-case: false #驼峰功能
+    auto-mapping-behavior: full #自动映射任何复杂的结果
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations:
+    - classpath:mybatis/mapper/*.xml
+
+weixin:
+  jscode2sessionUrl: https://api.weixin.qq.com/sns/jscode2session
+  appid: wx04d2628cbde7a9a4
+  secret: 808c9ff5bb8ca3c1060a80908760539e
+
+
+#微信支付配置
+# appid
+# mch_id 商户号
+# key 商户的key【API密匙】
+# url api请求地址
+# notify_url 服务器异步通知页面路径
+weixinpayconfig:
+  appid: wx04d2628cbde7a9a4
+  mch_id: 1626299645
+  key: 808c9ff5bb8ca3c1060a80908760539e
+  url: https://api.mch.weixin.qq.com/pay/unifiedorder
+  notify_url: https://2c23-222-184-165-54.ngrok.io/weixinpay/notifyUrl
+
+bigTypeImageFilePath: E://Java/java-mail/image_resource/bigTypeImg/
