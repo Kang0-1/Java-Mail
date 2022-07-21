@@ -42,3 +42,6 @@ weixinpayconfig:
   notify_url: https://2c23-222-184-165-54.ngrok.io/weixinpay/notifyUrl
 
 bigTypeImageFilePath: E://Java/java-mail/image_resource/bigTypeImg/
+productImageFilePath: E:/Java/java-mail/image_resource/productImg/
+HomeSwiperImageFilePath: E:/Java/java-mail/image_resource/homeSwiperImg/
+ProductSwiperImageFilePath: E:/Java/java-mail/image_resource/productSwiperImg/

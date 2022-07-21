@@ -1,10 +1,9 @@
 package com.kang.javamail.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldStrategy;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
+import lombok.Generated;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -21,6 +20,7 @@ import java.util.List;
 @Data
 public class Product {
 
+    @TableId(type = IdType.AUTO)
     private Integer id; // 编号
 
     private String name; // 名称
@@ -46,10 +46,13 @@ public class Product {
     private String description; // 描述
 
     @JsonSerialize(using=CustomDateTimeSerializer.class)
+    @TableField(updateStrategy = FieldStrategy.IGNORED)
     private Date hotDateTime; // 设置热门推荐日期时间
 
     @TableField(select = false)
     private List<ProductSwiperImage> productSwiperImageList;
 
+    @TableField(select = false)
+    private SmallType type; //商品类别
 
 }

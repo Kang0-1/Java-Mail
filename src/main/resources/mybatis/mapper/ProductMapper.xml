@@ -4,5 +4,77 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kang.javamail.mapper.ProductMapper">
 
+    <resultMap id="ProductResult" type="com.kang.javamail.entity.Product">
+        <association property="type" column="typeId" select="com.kang.javamail.mapper.SmallTypeMapper.findById"></association>
+    </resultMap>
+
+    <select id="list" parameterType="Map" resultMap="ProductResult">
+        select * from t_product
+        <where>
+            <if test="name!=null and name!='' ">
+                and name like concat('%',#{name},'%')
+            </if>
+        </where>
+        <if test="currentPageNum!=null and pageSize!=null ">
+            <bind name="currentPageNum" value="(currentPageNum-1)*pageSize"></bind>
+            limit #{currentPageNum},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getTotal" parameterType="Map" resultType="Long">
+        select count(*) from t_product
+        <where>
+            <if test="name!=null and name!='' ">
+                and name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="add" parameterType="com.kang.javamail.entity.Product" useGeneratedKeys="true" keyProperty="id">
+        insert into t_product(name,price,stock,proPic,isHot,isSwiper,swiperPic,swiperSort,typeId,productIntroImgs,productParaImgs,description)
+        values(#{name},#{price},#{stock},#{proPic},#{hot},#{swiper},#{swiperPic},#{swiperSort},
+                                     #{type.id},#{productIntroImgs},#{productParaImgs},#{description});
+    </insert>
+
+    <update id="update" parameterType="com.kang.javamail.entity.Product">
+        update t_product
+        <set>
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="price!=null">
+                price=#{price},
+            </if>
+            <if test="stock!=null">
+                stock=#{stock},
+            </if>
+            <if test="swiperSort!=null">
+                swiperSort=#{swiperSort},
+            </if>
+            <if test="type!=null and type.id!=null">
+                typeId=#{type.id},
+            </if>
+            <if test="proPic!=null and proPic!=''">
+                proPic=#{proPic},
+            </if>
+            <if test="description!=null and description!=''">
+                description=#{description},
+            </if>
+            <if test="productIntroImgs!=null and productIntroImgs!=''">
+                productIntroImgs=#{productIntroImgs},
+            </if>
+            <if test="productParaImgs!=null and productParaImgs!=''">
+                productParaImgs=#{productParaImgs},
+            </if>
+            <if test="swiperPic!=null and swiperPic!=''">
+                swiperPic=#{swiperPic}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <select id="findById" parameterType="com.kang.javamail.entity.Product" resultMap="ProductResult">
+        select * from  t_product where id=#{id}
+    </select>
 
 </mapper>

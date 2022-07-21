@@ -8,6 +8,10 @@
         <association property="bigType" column="bigTypeId" select="com.kang.javamail.mapper.BigTypeMapper.findById"></association>
     </resultMap>
 
+    <select id="findById" parameterType="Integer" resultMap="SmallTypeResult">
+        select * from t_smallType where id=#{id}
+    </select>
+
     <select id="list" parameterType="Map" resultMap="SmallTypeResult">
         select * from t_smallType
         <where>
@@ -29,5 +33,7 @@
             </if>
         </where>
     </select>
+
+
 
 </mapper>

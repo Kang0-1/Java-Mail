@@ -31,7 +31,7 @@ public class AdminSmallTypeController {
 
 
     /**
-     * 根据条件分页查询 商品大类信息
+     * 根据条件分页查询 商品小类信息
      * @param pageBean
      * @return
      */
@@ -50,6 +50,18 @@ public class AdminSmallTypeController {
         resultMap.put("smallTypeList",smallTypeList);
         resultMap.put("total",total);
         return R.success(resultMap);
+    }
+
+    /**
+     * 根据商品大类id,查询所有小类
+     * @return
+     */
+    @GetMapping("/listAll/{bigTypeId}")
+    public R listAll(@PathVariable(value = "bigTypeId")Integer bigTypeId){
+        List<SmallType> smallTypeList = smallTypeService.list(new QueryWrapper<SmallType>().eq("bigTypeId", bigTypeId));
+        Map<String ,Object> map=new HashMap<>();
+        map.put("smallTypeList",smallTypeList);
+        return R.success(map);
     }
 
     /**

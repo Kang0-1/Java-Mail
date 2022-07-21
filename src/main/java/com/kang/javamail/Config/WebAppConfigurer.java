@@ -23,7 +23,7 @@ public class WebAppConfigurer implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //访问请求路径转换为本地文件路径
-        registry.addResourceHandler("/image/home_swiper/**").addResourceLocations("file:E:\\Java\\java-mail\\image_resource\\homeSwiperImg\\");
+        registry.addResourceHandler("/image/swiper/**").addResourceLocations("file:E:\\Java\\java-mail\\image_resource\\homeSwiperImg\\");
         registry.addResourceHandler("/image/bigType/**").addResourceLocations("file:E:\\Java\\java-mail\\image_resource\\bigTypeImg\\");
         registry.addResourceHandler("/image/product/**").addResourceLocations("file:E:\\Java\\java-mail\\image_resource\\productImg\\");
         registry.addResourceHandler("/image/productSwiperImg/**").addResourceLocations("file:E:\\Java\\java-mail\\image_resource\\productSwiperImg\\");
